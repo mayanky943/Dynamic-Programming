@@ -14,15 +14,34 @@ int memoize(int n,vector<int> &dp){
 	return dp[n]=memoize(n-1,dp)+memoize(n-2,dp);
 }
 
+int tabulation(int n){
+	vector<int> dp(n+1,0);
+	dp[0]=1;
+	dp[1]=1;
+	for(int i=2;i<=n;i++){
+		dp[i]=dp[i-1]+dp[i-2];
+	}
+	return dp[n];
+}
 
+int spaceOptimized(int n){
+	int prev=1;
+	int prev2=1;
+	for(int i=2;i<=n;i++){
+		int curr=prev+prev2;
+		prev2=prev;
+		prev=curr;
+	}
+	return prev;
+}
 
 int main(){
 	int n;
 	cin>>n;
 	// cout<<recur(n);
-	vector<int> dp(n+1,-1);
-	cout<<memoize(n,dp);
+	// vector<int> dp(n+1,-1);
+	// cout<<memoize(n,dp);
 	// cout<<tabulation(n);
-	// cout<<spaceOptimized(n);
+	cout<<spaceOptimized(n);
 	return 0;
 }
